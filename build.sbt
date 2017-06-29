@@ -9,12 +9,12 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.google.guava" % "guava" % "15.0",
-  "org.apache.hadoop" % "hadoop-common" % "2.6.0",
-  "org.apache.hadoop" % "hadoop-mapred" % "0.22.0",
-  "org.apache.hbase" % "hbase-common" % "1.0.0",
-  "org.apache.hbase" % "hbase-client" % "1.0.0",
-  "com.github.scopt" %% "scopt" % "3.6.0"
+  "com.google.guava" % "guava" % "15.0" % "provided",
+  "org.apache.hadoop" % "hadoop-common" % "2.6.0" % "provided",
+  "org.apache.hadoop" % "hadoop-mapred" % "0.22.0" % "provided",
+  "org.apache.hbase" % "hbase-common" % "1.0.0" % "provided",
+  "org.apache.hbase" % "hbase-client" % "1.0.0" % "provided",
+  "com.github.scopt" %% "scopt" % "3.6.0" % "provided"
 )
 
 lazy val root = (project in file(".")).

@@ -1,5 +1,5 @@
-import org.apache.hadoop.hbase._
-import org.apache.hadoop.hbase.client._
+import org.apache.hadoop.hbase.{CellUtil, HBaseConfiguration, TableName}
+import org.apache.hadoop.hbase.client.{Table, Scan, Put, ConnectionFactory}
 
 object Main extends App {
 

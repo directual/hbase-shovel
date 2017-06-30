@@ -3,7 +3,7 @@
   */
 
 
-object RawKey {
+object RowKey {
   def apply(networkId : Long, structId : Long, objectKey: String): String = {
     s"${networkId.toString}_${structId}_$objectKey"
   }
@@ -21,21 +21,19 @@ object RawKey {
 }
 
 
-case class RowKeyHandler(networkIdMap_ : Map[Long, Long], structIdMap_ : Map[Long, Long]) {
-  private val networkIdMap = networkIdMap_
-  private val structIdMap = structIdMap_
+case class RowKeyHandler(networkIdsMap : Map[Long, Long], structIdsMap : Map[Long, Long]) {
 
   private def structIdTransform(id : Long) : Long = {
-    if (structIdMap.contains(id)) structIdMap(id) else id
+    if (structIdsMap.contains(id)) structIdsMap(id) else id
   }
 
   private def networkIdTransform(id : Long) : Long = {
-    if (networkIdMap.contains(id)) networkIdMap(id) else id
+    if (networkIdsMap.contains(id)) networkIdsMap(id) else id
   }
 
   def transform(rawKey : String) : String = {
     rawKey match {
-      case RawKey(x, y, z) => RawKey(networkIdTransform(x), structIdTransform(y), z)
+      case RowKey(x, y, z) => RowKey(networkIdTransform(x), structIdTransform(y), z)
       case _ => rawKey
     }
   }

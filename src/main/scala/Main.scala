@@ -3,9 +3,9 @@ object Main extends App {
 
   case class Config(sourceTable : String = "",
                     targetTable : String = "",
-                    zookeeperQuorum : String = "",
-                    zookeeperZnodeParent : String = "",
-                    networkId : Long = -1,
+                    zookeeperQuorum : Option[String] = None,
+                    zookeeperZnodeParent : Option[String] = None,
+                    networkId : Option[Long] = None,
                     networkIdsMap : Map[Long, Long] = Map(),
                     structIdsMap : Map[Long, Long] = Map())
 
@@ -22,24 +22,24 @@ object Main extends App {
       .required()
     opt[String]('z', "zookeeperQuorum")
       .valueName("<hbase.zookeeper.quorum>")
-      .action((value, config) => config.copy(zookeeperQuorum = value))
+      .action((value, config) => config.copy(zookeeperQuorum = Some(value)))
     opt[String]('p', "zookeeperZnodeParent")
       .valueName("<zookeeper.znode.parent>")
-      .action((value, config) => config.copy(zookeeperZnodeParent = value))
+      .action((value, config) => config.copy(zookeeperZnodeParent = Some(value)))
     opt[Long]('f', "networkID")
       .valueName("<networkID>")
-      .action((x, config) => config.copy(networkId = x))
-      .validate( x =>
-        if (x >= 0) success
+      .action((x, config) => config.copy(networkId = Some(x)))
+      .validate(value =>
+        if (value >= 0) success
         else failure("Value <networkID> must be non-negative")
       )
       .text("filter networkId")
     opt[Map[Long, Long]]('n', "networkIdsMap")
       .valueName("<id1=id2,id3=id4...>")
-      .action((x, config) => config.copy(networkIdsMap = x))
+      .action((value, config) => config.copy(networkIdsMap = value))
     opt[Map[Long, Long]]('s', "structIdsMap")
       .valueName("<id1=id2,id3=id4...>")
-      .action((x, config) => config.copy(structIdsMap = x))
+      .action((value, config) => config.copy(structIdsMap = value))
   }
 
   parser.parse(args, Config()) match {

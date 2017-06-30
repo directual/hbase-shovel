@@ -1,7 +1,3 @@
-/**
-  * Created by yuriy on 29.06.17.
-  */
-
 
 object RowKey {
   def apply(networkId : Long, structId : Long, objectKey: String): String = {

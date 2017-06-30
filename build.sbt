@@ -1,3 +1,5 @@
+import sbt.Keys.libraryDependencies
+
 name := "hbase-shovel"
 
 version := "1.0"
@@ -5,7 +7,8 @@ version := "1.0"
 scalaVersion := "2.12.1"
 
 resolvers ++= Seq(
-  "Hadoop Releases" at "https://repository.cloudera.com/content/repositories/releases/"
+  "Hadoop Releases" at "https://repository.cloudera.com/content/repositories/releases/",
+  "Artima Maven Repository" at "http://repo.artima.com/releases"
 )
 
 libraryDependencies ++= Seq(
@@ -14,9 +17,10 @@ libraryDependencies ++= Seq(
   "org.apache.hadoop" % "hadoop-mapred" % "0.22.0",
   "org.apache.hbase" % "hbase-common" % "1.0.0",
   "org.apache.hbase" % "hbase-client" % "1.0.0",
-  "com.github.scopt" %% "scopt" % "3.6.0"
+  "com.github.scopt" %% "scopt" % "3.6.0",
+  "org.scalactic" %% "scalactic" % "3.0.1",
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )
-
 lazy val root = (project in file(".")).
   settings(
     name := "shovel"

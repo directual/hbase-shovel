@@ -1,5 +1,3 @@
-import sbt.Keys.libraryDependencies
-
 name := "hbase-shovel"
 
 version := "1.0"
@@ -12,22 +10,14 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.google.guava" % "guava" % "15.0",
-  "org.apache.hadoop" % "hadoop-common" % "2.6.0",
-  "org.apache.hadoop" % "hadoop-mapred" % "0.22.0",
-  "org.apache.hbase" % "hbase-common" % "1.0.0",
-  "org.apache.hbase" % "hbase-client" % "1.0.0",
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "org.apache.hadoop" % "hadoop-common" % "2.8.1",
+  "org.apache.hbase" % "hbase-common" % "1.3.1",
+  "org.apache.hbase" % "hbase-client" % "1.3.1",
   "com.github.scopt" %% "scopt" % "3.6.0",
-  "org.scalactic" %% "scalactic" % "3.0.1",
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
-  "ch.qos.logback" % "logback-classic" % "1.0.9"
-)
-
-
-lazy val root = (project in file(".")).
-  settings(
-    name := "shovel"
-  )
+  "org.scalactic" %% "scalactic" % "3.0.3",
+  "org.scalatest" %% "scalatest" % "3.0.3" % "test"
+).map(_.exclude("org.slf4j", "slf4j-log4j12"))
 
 assemblyMergeStrategy in assembly := {
   case PathList("javax", "servlet", xs @ _*) => MergeStrategy.last
@@ -37,13 +27,11 @@ assemblyMergeStrategy in assembly := {
   case PathList("com", "esotericsoftware", xs @ _*) => MergeStrategy.last
   case PathList("com", "codahale", xs @ _*) => MergeStrategy.last
   case PathList("com", "yammer", xs @ _*) => MergeStrategy.last
-  case PathList("org", xs @ _*) => MergeStrategy.first
   case "about.html" => MergeStrategy.rename
   case "META-INF/ECLIPSEF.RSA" => MergeStrategy.last
   case "META-INF/mailcap" => MergeStrategy.last
   case "META-INF/mimetypes.default" => MergeStrategy.last
   case "plugin.properties" => MergeStrategy.last
-  case "log4j.properties" => MergeStrategy.last
   case x =>
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)

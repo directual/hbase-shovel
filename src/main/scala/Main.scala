@@ -1,13 +1,13 @@
 
 object Main extends App {
 
-  case class Config(sourceTable : String = "",
-                    targetTable : String = "",
-                    zookeeperQuorum : Option[String] = None,
-                    zookeeperZnodeParent : Option[String] = None,
-                    networkId : Option[Long] = None,
-                    networkIdsMap : Map[Long, Long] = Map(),
-                    structIdsMap : Map[Long, Long] = Map())
+  case class Config(sourceTable: String = "",
+                    targetTable: String = "",
+                    zookeeperQuorum: Option[String] = None,
+                    zookeeperZnodeParent: Option[String] = None,
+                    networkId: Option[Long] = None,
+                    networkIdsMap: Map[Long, Long] = Map(),
+                    structIdsMap: Map[Long, Long] = Map())
 
   val parser = new scopt.OptionParser[Config]("hbase-shovel") {
     head("hbase-shovel")
@@ -44,7 +44,8 @@ object Main extends App {
 
   parser.parse(args, Config()) match {
     case Some(config) =>
-      Shovel.run(config)
+      val shovel = Shovel(config)
+      shovel.run()
     case None =>
       sys.exit(1)
   }

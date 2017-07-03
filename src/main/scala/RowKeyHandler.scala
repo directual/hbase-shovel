@@ -1,4 +1,3 @@
-
 object RowKey {
   def apply(networkId: Long, structId: Long, objectKey: String): String = {
     s"${networkId}_${structId}_$objectKey"

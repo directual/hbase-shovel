@@ -1,3 +1,5 @@
+package com.directual.hbase.shovel
+
 import ActionType._
 
 object Main extends App {
